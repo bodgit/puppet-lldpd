@@ -1,12 +1,12 @@
 # @!visibility private
 class lldpd::service {
 
-  $flags = $::osfamily ? {
-    'OpenBSD' => $::lldpd::config::flags,
+  $flags = $facts['os']['family'] ? {
+    'OpenBSD' => $lldpd::config::flags,
     default   => undef,
   }
 
-  service { $::lldpd::service_name:
+  service { $lldpd::service_name:
     ensure     => running,
     enable     => true,
     flags      => $flags,

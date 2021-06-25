@@ -1,16 +1,6 @@
 require 'spec_helper'
 
 describe 'lldpd' do
-  context 'on unsupported distributions' do
-    let(:facts) do
-      {
-        osfamily: 'Unsupported'
-      }
-    end
-
-    it { expect { is_expected.to compile }.to raise_error(%r{not supported on an Unsupported}) }
-  end
-
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) do

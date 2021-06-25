@@ -1,11 +1,11 @@
 # @!visibility private
 class lldpd::config {
 
-  $addresses   = $::lldpd::addresses
-  $chassis_id  = $::lldpd::chassis_id
-  $class       = $::lldpd::class
-  $interfaces  = $::lldpd::interfaces
-  $snmp_socket = $::lldpd::snmp_socket
+  $addresses   = $lldpd::addresses
+  $chassis_id  = $lldpd::chassis_id
+  $class       = $lldpd::class
+  $interfaces  = $lldpd::interfaces
+  $snmp_socket = $lldpd::snmp_socket
 
   file { '/etc/lldpd.d':
     ensure  => directory,
@@ -29,7 +29,7 @@ class lldpd::config {
       undef   => undef,
       default => "-M ${class}",
     },
-    [$::lldpd::enable_cdpv1, $::lldpd::enable_cdpv2] ? {
+    [$lldpd::enable_cdpv1, $lldpd::enable_cdpv2] ? {
       [false, false]   => undef,
       [true, true]     => '-c',
       ['force', true]  => '-cc',
@@ -38,27 +38,27 @@ class lldpd::config {
       [false, 'force'] => '-ccccc',
       default          => fail('Invalid combination of CDP parameters'),
     },
-    $::lldpd::enable_edp ? {
+    $lldpd::enable_edp ? {
       true    => '-e',
       'force' => '-ee',
       default => undef,
     },
-    $::lldpd::enable_fdp ? {
+    $lldpd::enable_fdp ? {
       true    => '-f',
       'force' => '-ff',
       default => undef,
     },
-    $::lldpd::enable_lldp ? {
+    $lldpd::enable_lldp ? {
       'force' => '-l',
       false   => '-ll',
       default => undef,
     },
-    $::lldpd::enable_sonmp ? {
+    $lldpd::enable_sonmp ? {
       true    => '-s',
       'force' => '-ss',
       default => undef,
     },
-    $::lldpd::enable_snmp ? {
+    $lldpd::enable_snmp ? {
       true    => '-x',
       default => undef,
     },
@@ -75,7 +75,7 @@ class lldpd::config {
     },
   ].filter |$x| { $x =~ NotUndef }, ' ')
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat': {
       file { '/etc/sysconfig/lldpd':
         ensure  => file,

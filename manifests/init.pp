@@ -1,16 +1,16 @@
 # Installs and manages the LLDP agent.
 #
 # @example Declaring the class
-#   include ::lldpd
+#   include lldpd
 #
 # @example Enabling CDPv1 and CDPv2
-#   class { '::lldpd':
+#   class { 'lldpd':
 #     enable_cdpv1 => true,
 #     enable_cdpv2 => true,
 #   }
 #
 # @example Enable SNMP support
-#   class { '::lldpd':
+#   class { 'lldpd':
 #     enable_snmp => true,
 #     snmp_socket => ['127.0.0.1', 705],
 #   }
@@ -41,15 +41,14 @@ class lldpd (
   Variant[Boolean, Enum['force']]                                                        $enable_sonmp = false,
   Boolean                                                                                $enable_snmp  = false,
   Optional[Array[String, 1]]                                                             $interfaces   = undef,
-  String                                                                                 $package_name = $::lldpd::params::package_name,
-  String                                                                                 $service_name = $::lldpd::params::service_name,
+  String                                                                                 $package_name = $lldpd::params::package_name,
+  String                                                                                 $service_name = $lldpd::params::service_name,
   Optional[Variant[Stdlib::Absolutepath, Tuple[IP::Address::NoSubnet, Bodgitlib::Port]]] $snmp_socket  = undef,
-) inherits ::lldpd::params {
+) inherits lldpd::params {
 
-  contain ::lldpd::install
-  contain ::lldpd::config
-  contain ::lldpd::service
+  contain lldpd::install
+  contain lldpd::config
+  contain lldpd::service
 
-  Class['::lldpd::install'] -> Class['::lldpd::config']
-    ~> Class['::lldpd::service']
+  Class['lldpd::install'] -> Class['lldpd::config'] ~> Class['lldpd::service']
 }
