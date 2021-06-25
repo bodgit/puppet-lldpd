@@ -16,7 +16,7 @@ class lldpd::config {
     recurse => true,
   }
 
-  $flags = join(delete_undef_values([
+  $flags = join([
     $addresses ? {
       undef   => undef,
       default => "-m ${join($addresses, ',')}",
@@ -73,7 +73,7 @@ class lldpd::config {
         default     => "-X ${snmp_socket}",
       },
     },
-  ]), ' ')
+  ].filter |$x| { $x =~ NotUndef }, ' ')
 
   case $::osfamily {
     'RedHat': {

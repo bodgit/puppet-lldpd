@@ -7,6 +7,20 @@
   "source": "https://github.com/bodgit/puppet-lldpd",
   "project_page": "https://github.com/bodgit/puppet-lldpd",
   "issues_url": "https://github.com/bodgit/puppet-lldpd/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">=4.13.0 <5.0.0"
+    },
+    {
+      "name": "thrnio/ip",
+      "version_requirement": ">=1.0.0 <2.0.0"
+    },
+    {
+      "name": "bodgit/bodgitlib",
+      "version_requirement": ">=1.6.0 <3.0.0"
+    }
+  ],
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
@@ -71,18 +85,7 @@
     "lldp",
     "sonmp"
   ],
-  "dependencies": [
-    {
-      "name": "puppetlabs/stdlib",
-      "version_requirement": ">=4.13.0 <5.0.0"
-    },
-    {
-      "name": "thrnio/ip",
-      "version_requirement": ">=1.0.0 <2.0.0"
-    },
-    {
-      "name": "bodgit/bodgitlib",
-      "version_requirement": ">=1.6.0 <3.0.0"
-    }
-  ]
+  "pdk-version": "2.1.0",
+  "template-url": "https://github.com/bodgit/pdk-templates#bodgit",
+  "template-ref": "remotes/origin/bodgit-0-g022387a"
 }
