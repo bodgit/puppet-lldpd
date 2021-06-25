@@ -1,3 +1,13 @@
 fixtures:
   symlinks:
     lldpd: "#{source_dir}"
+  forge_modules:
+    bodgitlib:
+      repo: "bodgit/bodgitlib"
+      ref: "2.0.1"
+    ip:
+      repo: "thrnio/ip"
+      ref: "1.0.1"
+    stdlib:
+      repo: "puppetlabs/stdlib"
+      ref: "4.25.0"

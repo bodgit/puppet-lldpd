@@ -4,7 +4,7 @@ require 'beaker/puppet_install_helper'
 
 hosts.each do |host|
   # Just assume the OpenBSD box has Puppet installed already
-  if host['platform'] !~ /^openbsd-/i
+  unless %r{^openbsd-}i.match?(host['platform'])
     run_puppet_install_helper_on(host)
   end
 end
@@ -16,12 +16,12 @@ RSpec.configure do |c|
 
   c.before :suite do
     hosts.each do |host|
-      puppet_module_install(:source => proj_root, :module_name => 'lldpd')
-      on host, puppet('module', 'install', 'puppetlabs-stdlib'), { :acceptable_exit_codes => [0,1] }
-      on host, puppet('module', 'install', 'bodgit-bodgitlib'),  { :acceptable_exit_codes => [0,1] }
-      on host, puppet('module', 'install', 'thrnio-ip'),         { :acceptable_exit_codes => [0,1] }
-      on host, puppet('module', 'install', 'stahnma-epel'),      { :acceptable_exit_codes => [0,1] }
-      on host, puppet('module', 'install', 'razorsedge-snmp'),   { :acceptable_exit_codes => [0,1] }
+      puppet_module_install(source: proj_root, module_name: 'lldpd')
+      on host, puppet('module', 'install', 'puppetlabs-stdlib'), { acceptable_exit_codes: [0, 1] }
+      on host, puppet('module', 'install', 'bodgit-bodgitlib'),  { acceptable_exit_codes: [0, 1] }
+      on host, puppet('module', 'install', 'thrnio-ip'),         { acceptable_exit_codes: [0, 1] }
+      on host, puppet('module', 'install', 'stahnma-epel'),      { acceptable_exit_codes: [0, 1] }
+      on host, puppet('module', 'install', 'razorsedge-snmp'),   { acceptable_exit_codes: [0, 1] }
       scp_to(host, File.join(proj_root, 'spec/fixtures/files/LLDP-MIB.txt'), '/root/LLDP-MIB.txt')
     end
   end
