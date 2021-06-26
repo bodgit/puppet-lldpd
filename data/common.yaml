@@ -1,1 +1,15 @@
---- {}
+---
+lldpd::addresses: ~
+lldpd::chassis_id: ~
+lldpd::class: ~
+lldpd::enable_cdpv1: false
+lldpd::enable_cdpv2: false
+lldpd::enable_edp: false
+lldpd::enable_fdp: false
+lldpd::enable_lldp: true
+lldpd::enable_sonmp: false
+lldpd::enable_snmp: false
+lldpd::interfaces: ~
+lldpd::package_name: 'lldpd'
+lldpd::service_name: 'lldpd'
+lldpd::snmp_socket: ~

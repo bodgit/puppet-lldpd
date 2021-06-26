@@ -12,7 +12,6 @@ describe 'lldpd' do
       it { is_expected.to contain_class('lldpd') }
       it { is_expected.to contain_class('lldpd::config') }
       it { is_expected.to contain_class('lldpd::install') }
-      it { is_expected.to contain_class('lldpd::params') }
       it { is_expected.to contain_class('lldpd::service') }
       it { is_expected.to contain_file('/etc/lldpd.d') }
       it { is_expected.to contain_package('lldpd') }
