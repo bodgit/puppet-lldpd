@@ -1,11 +1,10 @@
 # lldpd
 
-Tested with Travis CI
-
-[![Build Status](https://travis-ci.org/bodgit/puppet-lldpd.svg?branch=master)](https://travis-ci.org/bodgit/puppet-lldpd)
-[![Coverage Status](https://coveralls.io/repos/bodgit/puppet-lldpd/badge.svg?branch=master&service=github)](https://coveralls.io/github/bodgit/puppet-lldpd?branch=master)
-[![Puppet Forge](http://img.shields.io/puppetforge/v/bodgit/lldpd.svg)](https://forge.puppetlabs.com/bodgit/lldpd)
-[![Dependency Status](https://gemnasium.com/bodgit/puppet-lldpd.svg)](https://gemnasium.com/bodgit/puppet-lldpd)
+[![Build Status](https://img.shields.io/github/workflow/status/bodgit/puppet-lldpd/Test)](https://github.com/bodgit/puppet-lldpd/actions?query=workflow%3ATest)
+[![Codecov](https://img.shields.io/codecov/c/github/bodgit/puppet-lldpd)](https://codecov.io/gh/bodgit/puppet-lldpd)
+[![Puppet Forge version](http://img.shields.io/puppetforge/v/bodgit/lldpd)](https://forge.puppetlabs.com/bodgit/lldpd)
+[![Puppet Forge downloads](https://img.shields.io/puppetforge/dt/bodgit/lldpd)](https://forge.puppetlabs.com/bodgit/lldpd)
+[![Puppet Forge - PDK version](https://img.shields.io/puppetforge/pdk-version/bodgit/lldpd)](https://forge.puppetlabs.com/bodgit/lldpd)
 
 #### Table of Contents
 
@@ -23,7 +22,7 @@ Tested with Travis CI
 This module installs and manages `lldpd` which provides LLDP advertisements
 to connected network devices.
 
-RHEL/CentOS, Ubuntu, Debian and OpenBSD are supported using Puppet 4.6.0 or
+RHEL/CentOS, Ubuntu, Debian and OpenBSD are supported using Puppet 5 or
 later.
 
 ## Setup
@@ -31,7 +30,7 @@ later.
 ### Setup Requirements
 
 On RHEL/CentOS platforms you will need to have access to the EPEL repository by
-using [stahnma/epel](https://forge.puppet.com/stahnma/epel) or by other means.
+using [puppet/epel](https://forge.puppet.com/puppet/epel) or by other means.
 
 ### Beginning with lldpd
 
@@ -39,7 +38,7 @@ In the very simplest case, applying the module will install and start the
 `lldpd` agent and enable LLDP advertisements:
 
 ```puppet
-include ::lldpd
+include lldpd
 ```
 
 ## Usage
@@ -48,7 +47,7 @@ If you want to also enable the Cisco Discovery Protocol, which comprises two
 versions, use the following:
 
 ```puppet
-class { '::lldpd':
+class { 'lldpd':
   enable_cdpv1 => true,
   enable_cdpv2 => true,
 }
@@ -57,7 +56,7 @@ class { '::lldpd':
 Enabling the SNMP AgentX sub-agent can be done with:
 
 ```puppet
-class { '::lldpd':
+class { 'lldpd':
   enable_snmp => true,
   snmp_socket => ['127.0.0.1', 705],
 }
@@ -68,28 +67,30 @@ class { '::lldpd':
 The reference documentation is generated with
 [puppet-strings](https://github.com/puppetlabs/puppet-strings) and the latest
 version of the documentation is hosted at
-[https://bodgit.github.io/puppet-lldpd/](https://bodgit.github.io/puppet-lldpd/).
+[https://bodgit.github.io/puppet-lldpd/](https://bodgit.github.io/puppet-lldpd/)
+and available also in the [REFERENCE.md](https://github.com/bodgit/puppet-lldpd/blob/main/REFERENCE.md).
 
 ## Limitations
 
-This module has been built on and tested against Puppet 4.6.0 and higher.
+This module has been built on and tested against Puppet 5 and higher.
 
 The module has been tested on:
 
-* RedHat Enterprise Linux 6/7
-* Ubuntu 14.04/16.04
-* Debian 7/8
-* OpenBSD 6.0/6.1
+* Red Hat/CentOS Enterprise Linux 6/7/8
+* Ubuntu 16.04/18.04/20.04
+* Debian 9/10
+* OpenBSD 6.9
 
 ## Development
 
-The module has both [rspec-puppet](http://rspec-puppet.com) and
-[beaker-rspec](https://github.com/puppetlabs/beaker-rspec) tests. Run them
+The module relies on [PDK](https://puppet.com/docs/pdk/1.x/pdk.html) and has
+both [rspec-puppet](http://rspec-puppet.com) and
+[Litmus](https://github.com/puppetlabs/puppet_litmus) tests. Run them
 with:
 
 ```
-$ bundle exec rake test
-$ PUPPET_INSTALL_TYPE=agent PUPPET_INSTALL_VERSION=x.y.z bundle exec rake beaker:<nodeset>
+$ bundle exec rake spec
+$ bundle exec rake litmus:*
 ```
 
 Please log issues or pull requests at
